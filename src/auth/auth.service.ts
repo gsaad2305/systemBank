@@ -1,26 +1,51 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto.js';
-import { UpdateAuthDto } from './dto/update-auth.dto.js';
-
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { LoginDto } from './dto/login.dto.js';
+import { PrismaService } from '../database/prisma.service.js';
+import { HashingService } from '../common/hashing/hashing.service.js';
+import { JwtService } from '@nestjs/jwt';
+import type { ConfigType } from '@nestjs/config';
+import jwtConfig from './config/jwt.config.js';
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
-  }
+  constructor (
+    private readonly prismaService:PrismaService,
+    private readonly hashingService: HashingService,
+    private readonly jwtService: JwtService,
+    @Inject(jwtConfig.KEY)
+    private readonly jwtConfiguration: ConfigType<typeof jwtConfig>
+  ){}
+  async login(loginDto: LoginDto){
+    const userValid = await this.prismaService.user.findUnique({
+      where:{
+        email: loginDto.email
+      },
+    });
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+    if(!userValid) throw new UnauthorizedException("Email or password is invalid");
+    const isUser = await this.hashingService.compare(
+      loginDto.password,
+      userValid.password,
+    );
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+    if (!isUser) {
+      throw new UnauthorizedException('Email or password is invalid');
+    }
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+    const accessToken = await this.jwtService.signAsync(
+      {
+        sub: userValid.id,
+        email: userValid.email,
+      },
+      {
+        audience: this.jwtConfiguration.audience,
+        issuer: this.jwtConfiguration.issuer,
+        secret: this.jwtConfiguration.secret,
+        expiresIn: this.jwtConfiguration.jwtTtl,
+      },
+    );
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+    return {
+      accessToken,
+    };
   }
 }
