@@ -21,5 +21,41 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
-### System Bank Nest
+# System Bank Nest
+  Este projeto
+
+---
+### Funcionalidades
+- Gerenciamento de clientes:
+    - Nome Completo
+    - Email
+    - Password
+    - Data de Nascimento
+    - CPF
+- Operações Bancárias
+  - Depositar
+  - Sacar
+  - Transferir
+---
+### Tecnologias
+##### Fremework:
+  - Nestjs
+##### Banco de Dados:
+ - PostgreSQL
+---
+### Como iniciar o projeto:
+```
+pnpm install -D
+```
+Depois de instalada as dependências, inicie o arquivo docker-compose.yml
+````
+docker compose up -d
+````
+Após isso incie o projeto:
+
+```
+pnpm start:dev
+```
+
+Quando iniciado o projeto teste as requisições via Postman, Bruno ou qualquer outro semelhante.
+---
