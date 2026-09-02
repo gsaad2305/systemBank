@@ -18,10 +18,10 @@ export class AcountController {
   getBalance(@Param('accountId') accountId: string, @Req() request: AuthenticatedRequest){
     return this.acountService.getBalance(accountId, request.user.id)
   }
-  
+
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  getAccount(){
-    return this.acountService.getAccont();
+  getAccount(@Req() request:AuthenticatedRequest){
+    return this.acountService.getAccount(request.user.id);
   }
 }

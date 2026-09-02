@@ -39,7 +39,7 @@ export class AcountService {
         id:accountId,
       },
     });
-  if(!account) throw new ForbiddenException("You do not have acess to this account");
+  if(!account) throw new ForbiddenException("Account not found");
   if(account.ownerId !== userId) throw new ForbiddenException("User unauthorized");
 
   const transactions = await this.prismaService.transaction.findMany({
@@ -60,8 +60,15 @@ export class AcountService {
     }
     return acc.minus(transaction.amount);
   },new Prisma.Decimal(0));
+  return {
+    balance,
   }
-  async getAccont(){
-    return await this.prismaService.account.findMany()
+  }
+  async getAccount(userId: string){
+    return await this.prismaService.account.findMany({
+      where: {
+        ownerId: userId
+      }
+    })
   }
 }

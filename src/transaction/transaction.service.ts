@@ -1,26 +1,33 @@
-import { Injectable } from '@nestjs/common';
-import { CreateTransactionDto } from './dto/create-transaction.dto.js';
-import { UpdateTransactionDto } from './dto/update-transaction.dto.js';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { DepositDto } from './dto/deposit.dto.js';
+import { PrismaService } from '../database/prisma.service.js';
+import { accessSync } from 'fs';
+import { TransactionType } from '../generated/prisma/enums.js';
+import { TransfererDto } from './dto/transferer.dto.js';
 
 @Injectable()
 export class TransactionService {
-  create(createTransactionDto: CreateTransactionDto) {
-    return 'This action adds a new transaction';
+  constructor(private readonly prismaService: PrismaService) {}
+  async deposit(depositDto: DepositDto, accountId: string, userId:string,) {
+    const account = await this.prismaService.account.findUnique({
+      where:{
+        id: accountId,
+      },
+    })
+    ;
+    if (!account) throw new NotFoundException("User not found");
+    if (account.ownerId !== userId) throw new ForbiddenException("you do not have acess to this account");
+
+    return this.prismaService.transaction.create({
+      data: {
+        type: TransactionType.DEPOSIT,
+        amount: depositDto.amount,
+        toAccountId: accountId,
+      }
+    });
   }
 
-  findAll() {
-    return `This action returns all transaction`;
-  }
+  async sacar(transferirDto:TransfererDto){
 
-  findOne(id: number) {
-    return `This action returns a #${id} transaction`;
-  }
-
-  update(id: number, updateTransactionDto: UpdateTransactionDto) {
-    return `This action updates a #${id} transaction`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} transaction`;
   }
 }
