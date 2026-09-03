@@ -8,11 +8,13 @@ constructor(
   private readonly prismaService: PrismaService,
   private readonly hashingService: HashingService
 ){}
+
   async registerUser(createUserDto: CreateUserDto) {
     const emailExisted = await this.prismaService.user.findUnique({ where: { email: createUserDto.email } });
     if (emailExisted) throw new ConflictException('EMAIL EXISTED');
 
     const passwordHash = await this.hashingService.hash(createUserDto.password);
+    
     const newUser = await this.prismaService.user.create({
       data: {
         ...createUserDto,
