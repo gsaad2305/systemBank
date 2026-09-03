@@ -14,6 +14,7 @@ export class AcountService {
         id: ownerId,
       },
     });
+    
     if(!user) throw new NotFoundException("User not found");
     const accountExists = await this.prismaService.account.findFirst({
       where:{
@@ -32,13 +33,16 @@ export class AcountService {
         ownerId,
       },
     });
+
   }
+
   async getBalance(accountId:string, userId: string){
     const account = await this.prismaService.account.findUnique({
       where:{
         id:accountId,
       },
     });
+
   if(!account) throw new ForbiddenException("Account not found");
   if(account.ownerId !== userId) throw new ForbiddenException("User unauthorized");
 
@@ -54,6 +58,7 @@ export class AcountService {
       ],
     },
   });
+
   const balance = transactions.reduce((acc,transaction) => {
     if(transaction.toAccountId === accountId){
       return acc.plus(transaction.amount);
@@ -62,13 +67,22 @@ export class AcountService {
   },new Prisma.Decimal(0));
   return {
     balance,
+  };
+
   }
-  }
+
   async getAccount(userId: string){
     return await this.prismaService.account.findMany({
       where: {
         ownerId: userId
-      }
-    })
+      },
+    });
+  }
+  async deleteAccount(userId: string){
+    const user = await this.prismaService.account.findUnique({
+      where: {
+        id: userId,
+      },
+    });
   }
 }
