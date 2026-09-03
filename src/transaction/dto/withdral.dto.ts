@@ -1,7 +1,8 @@
 import { IsNumber, IsPositive } from "class-validator";
 
-export class CreateTransactionDto {
-  @IsNumber()
+export class WithdralDto {
   @IsPositive()
+  @IsNumber()
   amount: number;
+
 }

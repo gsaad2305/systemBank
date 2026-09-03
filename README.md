@@ -2,92 +2,212 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/main
-
 # System Bank Nest
 
----
-### Funcionalidades do sistema
-- Registro de Usuário
-    - Nome Completo
-    - Email
-    - Password
-    - Data de Nascimento
-    - CPF
-- Login de usuário
-    - Email
-    - Password
-    - Validção com token JWT
-- Operações Bancárias
-  - Depositar
-  - Sacar
-  - Transferir
-  - Investir
----
-### Tecnologias
-##### Framework:
-  - Nestjs
-##### Banco de Dados:
- - PostgreSQL
----
-### Como iniciar o projeto:
-```
-pnpm install -D
-```
-Depois de instalada as dependências, inicie o arquivo docker-compose.yml
-````
-docker compose up -d
-````
-Após isso incie o projeto:
+API REST de um sistema bancário desenvolvida com **NestJS**, **PostgreSQL** e **Prisma ORM**.
 
+O projeto foi desenvolvido com o objetivo de praticar conceitos de desenvolvimento backend, arquitetura modular, autenticação, autorização, persistência de dados e implementação de regras de negócio relacionadas a operações bancárias.
+
+---
+
+## Introdução
+
+O **System Bank Nest** é uma API backend que simula o funcionamento básico de um sistema bancário.
+
+A aplicação permite que usuários criem contas bancárias e realizem operações financeiras, como **depósitos, saques e transferências**.
+
+A autenticação dos usuários é realizada utilizando **JWT (JSON Web Token)**, garantindo que operações protegidas sejam executadas apenas por usuários autenticados e autorizados.
+
+O projeto utiliza o **Prisma ORM** para comunicação com o banco de dados PostgreSQL e para gerenciamento dos relacionamentos entre usuários, contas e transações.
+
+---
+
+## Visão do Projeto
+
+A proposta do projeto é representar, de forma simplificada, a estrutura de um sistema bancário através de uma API REST.
+
+O sistema possui três entidades principais:
+
+- **User** — representa o usuário da aplicação.
+- **Account** — representa uma conta bancária pertencente a um usuário.
+- **Transaction** — representa uma movimentação financeira realizada em uma conta.
+
+Um usuário pode possuir diferentes tipos de conta e realizar operações financeiras respeitando as regras de negócio definidas pela aplicação.
+
+### Fluxo básico
+
+```text
+Usuário
+   │
+   ├── Autenticação
+   │       │
+   │       └── JWT
+   │
+   └── Conta Bancária
+           │
+           ├── Depósito
+           ├── Saque
+           └── Transferência
+                    │
+                    └── Conta de destino
+````
+
+O saldo da conta é calculado com base nas transações realizadas, considerando os valores recebidos e enviados pela conta.
+
+---
+
+## Objetivo
+
+O principal objetivo do projeto é desenvolver uma API bancária aplicando conceitos fundamentais de backend com NestJS, incluindo:
+
+* Arquitetura modular
+* Separação de responsabilidades
+* Autenticação e autorização
+* Validação de dados
+* Regras de negócio
+* Persistência de dados
+* Relacionamentos entre entidades
+* Tratamento de exceções HTTP
+* Organização e manutenção de código
+
+---
+
+## Funcionalidades
+
+### Usuários
+
+* Cadastro de usuários
+* Validação de email único
+* Hash de senha utilizando bcrypt
+* Login de usuário
+* Autenticação utilizando JWT
+
+### Contas
+
+* Criação de conta bancária
+* Contas do tipo `CHECKING`
+* Contas do tipo `SAVINGS`
+* Geração automática do número da conta
+* Restrição de uma conta de cada tipo por usuário
+
+### Operações bancárias
+
+* Depósito
+* Saque
+* Transferência entre contas
+* Consulta de saldo
+* Validação de saldo disponível
+* Validação de propriedade das contas
+
+### Regras de negócio
+
+* Usuários não podem acessar contas pertencentes a outros usuários.
+* Não é permitido realizar operações com valores negativos.
+* Não é possível realizar um saque superior ao saldo disponível.
+* Depósitos possuem limite de valor.
+* Transferências possuem limite de valor.
+* A conta de origem de uma transferência deve pertencer ao usuário autenticado.
+* A conta de destino deve existir.
+* Um usuário não pode transferir entre duas contas próprias do mesmo tipo.
+
+---
+
+## Tecnologias
+
+### Backend
+
+* NestJS
+* TypeScript
+* Node.js
+
+### Banco de dados
+
+* PostgreSQL
+* Prisma ORM
+
+### Autenticação e segurança
+
+* Passport
+* JWT
+* bcrypt
+
+### Validação
+
+* class-validator
+* class-transformer
+
+### Gerenciamento de pacotes
+
+* pnpm
+
+### Ambiente
+
+* Docker
+* Docker Compose
+
+---
+
+## Como iniciar o projeto
+
+### 1. Instalar as dependências
+
+```bash
+pnpm install
 ```
+
+### 2. Iniciar o banco de dados
+
+O projeto utiliza Docker Compose para executar o PostgreSQL.
+
+```bash
+docker compose up -d
+```
+
+### 3. Configurar as variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto contendo as variáveis necessárias para conexão com o banco de dados e configuração da autenticação.
+
+Exemplo:
+
+```env
+DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/DATABASE"
+
+JWT_SECRET="your-secret"
+```
+
+Os valores devem ser definidos de acordo com a configuração do ambiente.
+
+### 4. Executar as migrations do Prisma
+
+```bash
+pnpm prisma migrate dev
+```
+
+### 5. Iniciar a aplicação
+
+```bash
 pnpm start:dev
 ```
 
-  Quando iniciado o projeto teste as requisições via Postman, Bruno ou qualquer outro semelhante.
+Após iniciar a aplicação, as requisições podem ser realizadas utilizando ferramentas como Postman, Bruno ou qualquer outro cliente HTTP.
 
 ---
-## Estrutura de pastas:
-```
+
+## Estrutura do projeto
+
+```text
 src/
+│
 ├── account/
 │   ├── dto/
-│   │   ├── create-account.dto.ts
-│   │   └── update-account.dto.ts
+│   │   └── create-account.dto.ts
 │   ├── account.controller.ts
 │   ├── account.module.ts
 │   └── account.service.ts
 │
-│
-├── app/
-│   ├── app.controller.spec.ts
-│   ├── app.controller.ts
-│   ├── app.module.ts
-│   └── app.service.ts
-│
 ├── auth/
 │   ├── config/
 │   ├── dto/
-│   ├── entities/
 │   ├── guards/
 │   ├── types/
 │   ├── auth.controller.ts
@@ -95,38 +215,129 @@ src/
 │   ├── auth.service.ts
 │   └── jwt.strategy.ts
 │
-├── common/
-│
 ├── database/
+│   └── prisma.service.ts
 │
 ├── generated/
 │
 ├── transaction/
+│   ├── balance/
+│   │   └── balance.service.ts
 │   ├── dto/
-│   │   ├── create-transaction.dto.ts
-│   │   └── update-transaction.dto.ts
+│   │   ├── deposit.dto.ts
+│   │   ├── sacar.dto.ts
+│   │   └── transfer.dto.ts
 │   ├── transaction.controller.ts
 │   ├── transaction.module.ts
 │   └── transaction.service.ts
 │
 ├── users/
 │   ├── dto/
-│   ├── entities/
 │   ├── users.controller.ts
 │   ├── users.module.ts
 │   └── users.service.ts
 │
+├── app.module.ts
 └── main.ts
 ```
 
-### Organização
-O projeto segue a arquitertura modular do **Nestjs** seperando as responsabilidades em diferentes módulos
-- **Auth:** autenticação utilizando JWT.
-- **Users:** gerenciamento dos usários.
-- **Account:** gerenciamento das contas bancárias.
-- **Transaction:** operações financeiras e transferências.
-- **Database:** comunicação com o banco de dados atráves do Prisma.
-- **Common:** recursos compartilhados entre módulos.
+---
+
+## Organização
+
+O projeto segue a arquitetura modular do **NestJS**, separando as responsabilidades da aplicação em diferentes módulos.
+
+### Auth
+
+Responsável pela autenticação dos usuários, geração e validação dos tokens JWT e estratégia de autenticação.
+
+### Users
+
+Responsável pelo gerenciamento dos usuários da aplicação.
+
+### Account
+
+Responsável pela criação e gerenciamento das contas bancárias.
+
+### Transaction
+
+Responsável pelas operações financeiras, como:
+
+* Depósitos
+* Saques
+* Transferências
+* Cálculo de saldo
+
+### Database
+
+Responsável pela integração da aplicação com o PostgreSQL através do Prisma ORM.
+
+### Balance
+
+Responsável pelo cálculo do saldo das contas a partir das transações realizadas.
 
 ---
-introdução, visao geral do sistema, requisitos funcionais, requisitos nao funcionais, restrições e dependências
+
+## Autenticação
+
+As operações protegidas utilizam autenticação baseada em **JWT**.
+
+Após realizar o login, o usuário recebe um token que deve ser enviado nas requisições protegidas através do header:
+
+```http
+Authorization: Bearer <token>
+```
+
+O usuário autenticado é utilizado para validar se ele possui acesso à conta que está tentando movimentar.
+
+---
+
+## Modelo das transações
+
+As movimentações financeiras são registradas através da entidade `Transaction`.
+
+```text
+                    Transaction
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+       DEPOSIT       WITHDRAWAL      TRANSFER
+          │              │              │
+          ▼              ▼              ▼
+      toAccount     fromAccount    fromAccount
+                                      │
+                                      ▼
+                                  toAccount
+```
+
+O saldo é calculado utilizando as transações:
+
+```text
+Saldo =
+Valores recebidos
+      -
+Valores enviados
+```
+
+Dessa forma, o saldo não precisa ser armazenado diretamente na conta.
+
+---
+
+## Objetivo do projeto
+
+Este projeto foi desenvolvido como prática de desenvolvimento backend utilizando NestJS, buscando aplicar conceitos de:
+
+* Arquitetura modular
+* APIs REST
+* Autenticação e autorização
+* JWT
+* Prisma ORM
+* PostgreSQL
+* DTOs
+* Validação de dados
+* Regras de negócio
+* Tratamento de exceções
+* Relacionamentos entre entidades
+* Organização de código
+
+---
