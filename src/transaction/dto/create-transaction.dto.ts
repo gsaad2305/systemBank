@@ -1,7 +1,7 @@
-import { IsEnum } from "class-validator";
-import { TransactionType } from "../../generated/prisma/enums.js";
+import { IsNumber, IsPositive } from "class-validator";
 
 export class CreateTransactionDto {
-  @IsEnum(TransactionType)
-  transaction: TransactionType;
+  @IsNumber()
+  @IsPositive()
+  amount: number;
 }

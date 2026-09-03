@@ -8,14 +8,18 @@ import { PrismaModule } from '../database/prisma.module.js';
 import { ConfigModule } from '@nestjs/config';
 import jwtConfig from '../auth/config/jwt.config.js';
 import { HashingModule } from '../common/hashing/hashing.module.js';
+import { TransactionModule } from '../transaction/transaction.module.js';
+import { BalanceModule } from '../transaction/balance/balance.module.js';
 
 
 @Module({
   imports: [
+  TransactionModule,
   UsersModule,
   AcountModule,
   AuthModule,
   HashingModule,
+  BalanceModule,
 PrismaModule,
 ConfigModule.forRoot({
   isGlobal: true,
