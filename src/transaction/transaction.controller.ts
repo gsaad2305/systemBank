@@ -1,34 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Param, UseGuards, Req } from '@nestjs/common';
 import { TransactionService } from './transaction.service.js';
-import { CreateTransactionDto } from './dto/create-transaction.dto.js';
-import { UpdateTransactionDto } from './dto/update-transaction.dto.js';
+import { AuthGuard } from '@nestjs/passport';
+import { DepositDto } from './dto/deposit.dto.js';
+import type { AuthenticatedRequest } from '../auth/types/autenticated-request.js';
+import { SacarDto } from './dto/sacar.dto.js';
 
 @Controller('transaction')
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
 
-  @Post()
-  create(@Body() createTransactionDto: CreateTransactionDto) {
-    return this.transactionService.create(createTransactionDto);
-  }
+    @UseGuards(AuthGuard('jwt'))
+    @Post(':accountId/deposit')
+    deposit(@Param('accountId') accountId:"string", @Body() depositDto: DepositDto, @Req() request: AuthenticatedRequest) {
+      return this.transactionService.deposit(depositDto,accountId, request.user.id);
+    }
+    @UseGuards(AuthGuard('jwt'))
+    @Post(':accountId/sacar')
+    sacar(@Param('accountId') accountId:"string", @Body() sacarDto: SacarDto, @Req() request: AuthenticatedRequest) {
+      return this.transactionService.withdral(sacarDto,accountId, request.user.id);
+    }
 
-  @Get()
-  findAll() {
-    return this.transactionService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.transactionService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
-    return this.transactionService.update(+id, updateTransactionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.transactionService.remove(+id);
-  }
 }
