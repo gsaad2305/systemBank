@@ -8,7 +8,9 @@ import { TransferDto } from './dto/transfer.dto.js';
 
 @Injectable()
 export class TransactionService {
-  constructor(private readonly prismaService: PrismaService, private readonly balanceService: BalanceService) {}
+  constructor(
+    private readonly prismaService: PrismaService, private readonly balanceService: BalanceService) {}
+
   async deposit(depositDto: DepositDto, accountId: string, userId:string,) {
     const account = await this.prismaService.account.findUnique({
       where: {
@@ -84,4 +86,28 @@ async transfer(transferDto: TransferDto,accountId: string,userId: string) {
   });
 }
 
+async getHistory(accountId: string, userId: string){
+    const account = await this.prismaService.account.findUnique({
+      where: {
+        id: accountId,
+      }
+    });
+
+    if(!account) throw new NotFoundException("User not found");
+    if(account.ownerId !== userId) throw new ForbiddenException('You not authorized account');
+
+   const history = await this.prismaService.transaction.findMany({
+    where:{
+      OR:[
+        {fromAccountId: accountId},
+        {toAccountId: accountId}
+      ]
+    },
+    orderBy:{
+      createAt: 'desc'
+    }
+   });
+
+   return history;
+  }
 }

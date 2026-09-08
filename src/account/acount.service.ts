@@ -78,6 +78,7 @@ export class AcountService {
       },
     });
   }
+  
   async deleteAccount(userId: string, accountId: string){
     const removeAccountId = await this.prismaService.account.findUnique({
       where: {

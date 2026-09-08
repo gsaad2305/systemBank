@@ -98,6 +98,8 @@ O principal objetivo do projeto é desenvolver uma API bancária aplicando conce
 * Consulta de saldo
 * Validação de saldo disponível
 * Validação de propriedade das contas
+* Investimentos
+* Retirada dos investimentos
 
 ### Regras de negócio
 
@@ -230,6 +232,14 @@ src/
 │   ├── transaction.controller.ts
 │   ├── transaction.module.ts
 │   └── transaction.service.ts
+│
+│
+├── investiments/
+│   ├── dto/
+│   ├── investiments.controller.ts
+│   ├── investiments.module.ts
+│   └── investiments.service.ts
+│
 │
 ├── users/
 │   ├── dto/
