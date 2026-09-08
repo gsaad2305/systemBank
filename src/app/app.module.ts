@@ -10,10 +10,14 @@ import jwtConfig from '../auth/config/jwt.config.js';
 import { HashingModule } from '../common/hashing/hashing.module.js';
 import { TransactionModule } from '../transaction/transaction.module.js';
 import { BalanceModule } from '../transaction/balance/balance.module.js';
-
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
+import { APP_GUARD } from '@nestjs/core';
+import 'dotenv/config';
+import { InvestimentsModule } from '../investiments/investiments.module.js';
 
 @Module({
   imports: [
+  InvestimentsModule,
   TransactionModule,
   UsersModule,
   AcountModule,
@@ -24,8 +28,23 @@ PrismaModule,
 ConfigModule.forRoot({
   isGlobal: true,
   load: [jwtConfig]
-})],
+}),
+ ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 10000,
+          limit: 10,
+          blockDuration: 5000,
+        },
+      ],
+    }),
+],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+{
+  provide: APP_GUARD,
+  useClass: ThrottlerGuard
+}
+],
 })
 export class AppModule {}

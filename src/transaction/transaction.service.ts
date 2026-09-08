@@ -8,7 +8,8 @@ import { TransferDto } from './dto/transfer.dto.js';
 
 @Injectable()
 export class TransactionService {
-  constructor(private readonly prismaService: PrismaService, private readonly balanceService: BalanceService) {}
+  constructor(
+    private readonly prismaService: PrismaService, private readonly balanceService: BalanceService) {}
   async deposit(depositDto: DepositDto, accountId: string, userId:string,) {
     const account = await this.prismaService.account.findUnique({
       where: {

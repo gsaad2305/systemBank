@@ -13,8 +13,9 @@ model User {
   name     String
   email    String    @unique
   password String
-  createAt DateTime  @default(now())
+  investiment Investiment[]
   account  Account[]
+  createAt DateTime  @default(now())
 }
 
 model Account {
@@ -36,6 +37,9 @@ model Transaction {
   createAt      DateTime        @default(now())
   fromAccount   Account?        @relation("SentTransactions", fields: [fromAccountId], references: [id])
   toAccount     Account?        @relation("ReceivedTransactions", fields: [toAccountId], references: [id])
+
+  investimentId String?
+  investiment Investiment? @relation(fields: [investimentId], references: [id])
 }
 
 enum AccountType {
@@ -47,4 +51,18 @@ enum TransactionType {
   DEPOSIT
   WITHDRAWAL
   TRANSFER
+  INVESTIMENT
+  REDEMPTION
+}
+
+model Investiment {
+  id String @id @default(uuid())
+  amount Decimal @db.Decimal(12,2)
+  yield Decimal @db.Decimal(12,2)
+  createaAt DateTime @default(now())
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  transactions Transaction[]
 }
