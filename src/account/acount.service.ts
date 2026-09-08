@@ -1,4 +1,4 @@
-import { ConflictException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateAcountDto } from './dto/create-acount.dto.js';
 import { PrismaService } from '../database/prisma.service.js';
 import { randomInt } from 'node:crypto';
@@ -14,7 +14,7 @@ export class AcountService {
         id: ownerId,
       },
     });
-    
+
     if(!user) throw new NotFoundException("User not found");
     const accountExists = await this.prismaService.account.findFirst({
       where:{
@@ -71,18 +71,22 @@ export class AcountService {
 
   }
 
-  async getAccount(userId: string){
+  async getAccount( accountId: string){
     return await this.prismaService.account.findMany({
       where: {
-        ownerId: userId
+        ownerId: accountId
       },
     });
   }
-  async deleteAccount(userId: string){
-    const user = await this.prismaService.account.findUnique({
+  async deleteAccount(userId: string, accountId: string){
+    const removeAccountId = await this.prismaService.account.findUnique({
       where: {
-        id: userId,
+        id: accountId
       },
     });
+    if(!removeAccountId) throw new NotFoundException("User not found");
+    if(removeAccountId.ownerId !== userId) throw new BadRequestException("Do you not authorized")
+
+    return this.prismaService.account.delete({where:{id: accountId}})
   }
 }

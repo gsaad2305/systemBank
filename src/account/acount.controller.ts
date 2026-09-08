@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Req, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Req, Get, Param, Delete } from '@nestjs/common';
 import { AcountService } from './acount.service.js';
 import { CreateAcountDto } from './dto/create-acount.dto.js';
 import { AuthGuard } from '@nestjs/passport';
@@ -23,5 +23,10 @@ export class AcountController {
   @Get()
   getAccount(@Req() request:AuthenticatedRequest){
     return this.acountService.getAccount(request.user.id);
+  }
+  @UseGuards(AuthGuard('jwt'))
+  @Delete(":accountId")
+  deleteAccount(@Param('accountId') accountId: string,@Req() request:AuthenticatedRequest){
+    return this.acountService.deleteAccount(request.user.id, accountId);
   }
 }
