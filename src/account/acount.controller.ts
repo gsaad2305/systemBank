@@ -3,7 +3,9 @@ import { AcountService } from './acount.service.js';
 import { CreateAcountDto } from './dto/create-acount.dto.js';
 import { AuthGuard } from '@nestjs/passport';
 import type { AuthenticatedRequest } from '../auth/types/autenticated-request.js';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('account')
 export class AcountController {
   constructor(private readonly acountService: AcountService) {}

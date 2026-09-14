@@ -12,7 +12,6 @@ import { TransactionModule } from '../transaction/transaction.module.js';
 import { BalanceModule } from '../transaction/balance/balance.module.js';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { APP_GUARD } from '@nestjs/core';
-import 'dotenv/config';
 import { InvestimentsModule } from '../investiments/investiments.module.js';
 
 @Module({
@@ -24,8 +23,8 @@ import { InvestimentsModule } from '../investiments/investiments.module.js';
   AuthModule,
   HashingModule,
   BalanceModule,
-PrismaModule,
-ConfigModule.forRoot({
+  PrismaModule,
+  ConfigModule.forRoot({
   isGlobal: true,
   load: [jwtConfig]
 }),

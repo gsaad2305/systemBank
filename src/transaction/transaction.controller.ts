@@ -5,7 +5,9 @@ import { DepositDto } from './dto/deposit.dto.js';
 import type { AuthenticatedRequest } from '../auth/types/autenticated-request.js';
 import { WithdralDto } from './dto/withdral.dto.js';
 import { TransferDto } from './dto/transfer.dto.js';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('transaction')
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
