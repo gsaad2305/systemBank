@@ -4,8 +4,9 @@ import { InvestimentDto } from './dto/investiment.dto.js';
 import { AuthGuard } from '@nestjs/passport';
 import type { AuthenticatedRequest } from '../auth/types/autenticated-request.js';
 import { RedemptionDto } from './dto/redemption.dto.js';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
-
+@ApiBearerAuth()
 @Controller('investiments')
 export class InvestimentsController {
   constructor(private readonly investimentsService: InvestimentsService) {}
