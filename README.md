@@ -355,4 +355,4 @@ Este projeto foi desenvolvido como prática de desenvolvimento backend utilizand
 ### Recursos a serem implementados:
 - yfinance - Módulo para visualização de ações da B3 e compra das ações
 - Implementação do Mailpit para quando o usuário: transferir, investir
-- Mockar rendimentos
+- Mockar rendimentos 
