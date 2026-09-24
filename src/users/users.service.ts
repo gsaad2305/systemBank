@@ -1,7 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, BadRequestException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { PrismaService } from '../database/prisma.service.js';
 import { HashingService } from '../common/hashing/hashing.service.js';
+import {isCPF} from 'validation-br'
 @Injectable()
 export class UsersService {
 constructor(
@@ -13,10 +14,14 @@ constructor(
     const emailExisted = await this.prismaService.user.findUnique({ where: { email: createUserDto.email } });
     if (emailExisted) throw new ConflictException('EMAIL EXISTED');
 
+    const cpfValid = isCPF(createUserDto.cpf)
+
+    if(!cpfValid) throw new BadRequestException("Cpf invalido");
+
     const passwordHash = await this.hashingService.hash(createUserDto.password);
-    
+
     const newUser = await this.prismaService.user.create({
-      data: {
+      data:{
         ...createUserDto,
         password: passwordHash,
       },
@@ -28,5 +33,4 @@ constructor(
 
     return newUser;
   }
-
 }

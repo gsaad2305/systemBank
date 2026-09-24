@@ -120,6 +120,9 @@ importers:
       typescript:
         specifier: ^5.9.2
         version: 5.9.3
+      validation-br:
+        specifier: ^2.0.0
+        version: 2.0.0
       vite-tsconfig-paths:
         specifier: ^5.1.4
         version: 5.1.4(supports-color@7.2.0)(typescript@5.9.3)(vite@8.2.2(@types/node@24.13.3)(jiti@2.7.0))
@@ -2401,6 +2404,9 @@ packages:
   utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
+
+  validation-br@2.0.0:
+    resolution: {integrity: sha512-5dw6Us6KuTQDKJ0CZs9EtTO+Y9ZLMOLIp7JjuLZ9XMRCLZu0/mkUVzGjUOfJYa5zmxNfW2LD0fCxu1igWxW4ww==}
 
   validator@13.15.35:
     resolution: {integrity: sha512-TQ5pAGhd5whStmqWvYF4OjQROlmv9SMFVt37qoCBdqRffuuklWYQlCNnEs2ZaIBD1kZRNnikiZOS1eqgkar0iw==}
@@ -4749,6 +4755,8 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   utils-merge@1.0.1: {}
+
+  validation-br@2.0.0: {}
 
   validator@13.15.35: {}
 
