@@ -50,6 +50,9 @@ importers:
       user:
         specifier: ^0.0.0
         version: 0.0.0
+      validation-br:
+        specifier: ^2.0.0
+        version: 2.0.0
     devDependencies:
       '@nestjs/cli':
         specifier: ^12.0.0
@@ -3611,6 +3614,9 @@ packages:
   valid-data-url@3.0.1:
     resolution: {integrity: sha512-jOWVmzVceKlVVdwjNSenT4PbGghU0SBIizAev8ofZVgivk/TVHXSbNL8LP6M3spZvkR9/QolkyJavGSX5Cs0UA==}
     engines: {node: '>=10'}
+
+  validation-br@2.0.0:
+    resolution: {integrity: sha512-5dw6Us6KuTQDKJ0CZs9EtTO+Y9ZLMOLIp7JjuLZ9XMRCLZu0/mkUVzGjUOfJYa5zmxNfW2LD0fCxu1igWxW4ww==}
 
   validator@13.15.35:
     resolution: {integrity: sha512-TQ5pAGhd5whStmqWvYF4OjQROlmv9SMFVt37qoCBdqRffuuklWYQlCNnEs2ZaIBD1kZRNnikiZOS1eqgkar0iw==}
@@ -7834,6 +7840,8 @@ snapshots:
 
   valid-data-url@3.0.1:
     optional: true
+
+  validation-br@2.0.0: {}
 
   validator@13.15.35: {}
 
