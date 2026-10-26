@@ -13,7 +13,7 @@ importers:
         version: 4.5.4(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)
       '@nestjs-modules/mailer':
         specifier: ^2.3.7
-        version: 2.3.7(@nestjs/common@12.0.1(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.0.1)(chokidar@5.0.0)(nodemailer@10.0.9)(svgo@4.1.0)(typescript@5.9.3)
+        version: 2.3.7(@nestjs/common@12.0.1(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.0.1)(chokidar@5.0.0)(nodemailer@10.1.4)(svgo@4.1.0)(typescript@5.9.3)
       '@nestjs/core':
         specifier: ^12.0.1
         version: 12.0.1(@nestjs/common@12.0.1(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/platform-express@12.0.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -39,8 +39,8 @@ importers:
         specifier: ^0.15.1
         version: 0.15.1
       nodemailer:
-        specifier: ^10.0.9
-        version: 10.0.9
+        specifier: ^10.1.4
+        version: 10.1.4
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -2663,8 +2663,8 @@ packages:
     resolution: {integrity: sha512-mIrE/Cw9y+9Au6dS5vDKDhQza9YvG6w+ZrS6X+ZzA7yFW/soAeaups4Qzn1bL6g5FVy8WtP79+0j82oPIbqRjQ==}
     engines: {node: '>=18'}
 
-  nodemailer@10.0.9:
-    resolution: {integrity: sha512-BF0qcyplCwp+jMk6HCjFykBz/YhhZSsxrARhOldLwFWH+8kGjQsd2WIMIZhqEuyXRoGFi0ONbDeWDMDoL8MhLw==}
+  nodemailer@10.1.4:
+    resolution: {integrity: sha512-EsMnOR2oRv4LGnWvHgcVYkkQ4O2j8KO4WTw6l+PHR4sOXo8SAgIraxtEnGDmotjbhv0hDsu3IuDIFZm8iXwO4A==}
     engines: {node: '>=20.0.0'}
 
   nodemailer@9.0.6:
@@ -4063,13 +4063,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@nestjs-modules/mailer@2.3.7(@nestjs/common@12.0.1(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.0.1)(chokidar@5.0.0)(nodemailer@10.0.9)(svgo@4.1.0)(typescript@5.9.3)':
+  '@nestjs-modules/mailer@2.3.7(@nestjs/common@12.0.1(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/core@12.0.1)(chokidar@5.0.0)(nodemailer@10.1.4)(svgo@4.1.0)(typescript@5.9.3)':
     dependencies:
       '@css-inline/css-inline': 0.20.0
       '@nestjs/common': 12.0.1(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)
       '@nestjs/core': 12.0.1(@nestjs/common@12.0.1(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(@nestjs/platform-express@12.0.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       glob: 13.0.6
-      nodemailer: 10.0.9
+      nodemailer: 10.1.4
       tslib: 2.8.1
     optionalDependencies:
       '@types/ejs': 3.1.5
@@ -6766,7 +6766,7 @@ snapshots:
   node-releases@2.0.55:
     optional: true
 
-  nodemailer@10.0.9: {}
+  nodemailer@10.1.4: {}
 
   nodemailer@9.0.6:
     optional: true
